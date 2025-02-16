@@ -1,0 +1,40 @@
+import java.util.Scanner;
+public class matrix_diagnal {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the number of rows and columns remember to keep matrix square: ");
+
+        int n= sc.nextInt();
+        int a[][]=new int[n][n];
+        System.out.println("Enter the elements: ");
+
+        for(int i=0; i<n; i++){
+            for(int j=0;j<n;j++){
+                a[i][j]=sc.nextInt();
+            }
+        }
+        System.out.println("The matrix is: \t");
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                System.out.println(a[i][j]);
+                System.out.println(" ");
+            }
+            System.out.println("\n");
+        }
+        System.out.println("The non principle diagonal elements are: ");
+        int c = 0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(i==j||i+j==n-1){
+                    continue;
+                }
+                System.out.println(a[i][j]+" ");
+                c+=a[i][j];
+
+
+            }
+        }
+        System.out.println();
+        System.out.println("Sum of non diagonal elements: "+c);
+    }
+}
