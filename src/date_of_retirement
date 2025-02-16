@@ -1,0 +1,34 @@
+import java.util.Scanner;
+public class date_of_retirement {
+    public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
+        int day1=0,day=0,m=0,year=0;
+        System.out.println("Enter your DOB in ddmmyyyy form: ");
+        int dob=sc.nextInt();
+        day=dob/1000000;
+        m=(dob/10000)%100;
+        year=(dob%10000);
+        int leap=0;
+        int year1=year+60;
+        if(year1%4==0){
+            if(year1%100==0 && year1%400!=0){
+                leap=1;
+            }
+        }
+        if(m==1 || m==3||m==5||m==7||m==8||m==10||m==12) {
+            day1 = 31;
+        }
+        else if(m==2){
+            if(leap==1){
+                day1=29;
+            }
+            else{
+                day1=28;
+            }
+        }
+        else{
+            day1=30;
+        }
+        System.out.println("The date of retirement is "+day1 + "-"+m+"-"+(year+60));
+    }
+}
