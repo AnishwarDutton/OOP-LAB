@@ -1,0 +1,26 @@
+import java.util.Scanner;
+public class TAXI_fare {
+    public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
+        System.out.print("Enter the amount of money (INR): ");
+        double money = sc.nextDouble();
+        sc.close();
+        double distance = calculateDistance(money);
+        System.out.println("Total distance traveled: " + distance + " km");
+    }
+    public static double calculateDistance(double money) {
+        double distance = 0.0;
+        if (money <= 50) {
+            distance = money / 10;
+        } else if (money <= 170) {
+            distance = 5 + (money - 50) / 8;
+        } else if (money <= 295) {
+            distance = 20 + (money - 170) / 5;
+        } else {
+            distance = 45;
+        }
+        return distance;
+    }
+}
+
+
