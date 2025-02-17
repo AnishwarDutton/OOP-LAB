@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+class Employee {
+    String Ename;
+    int Eid;
+    double Basic, DA, Gross_Sal, Net_Sal;
+
+
+    void assign(String name, int id, double sal) {
+        Ename = name;
+        Eid = id;
+        Basic = sal;
+    }
+
+
+    void compute_net_sal() {
+        DA = 0.52 * Basic;
+        Gross_Sal = Basic + DA;
+        Net_Sal = Gross_Sal - (0.3 * Gross_Sal); // Assuming 30% deductions
+    }
+
+
+    void display() {
+        System.out.println("\nEmployee Name: " + Ename);
+        System.out.println("Employee ID: " + Eid);
+        System.out.println("Basic Salary: " + Basic);
+        System.out.println("DA: " + DA);
+        System.out.println("Gross Salary: " + Gross_Sal);
+        System.out.println("Net Salary: " + Net_Sal);
+    }
+
