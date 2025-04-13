@@ -1,0 +1,54 @@
+import java.util.Scanner;
+class Emply {
+String Ename;
+int Eid;
+double Basic;
+public Emply(String ename, int eid, double basic) {
+this.Ename = ename;
+this.Eid = eid;
+this.Basic = basic;
+}
+public String formatEmployeeName() {
+StringBuilder formattedName = new StringBuilder();
+for (String word : Ename.split(" ")) {
+formattedName.append(Character.toUpperCase(word.charAt(0))
+)
+.append(word.substring(1).toLowerCase())
+.append(" ");
+}
+return formattedName.toString().trim();
+}
+public String generateEmail() {
+String[] words = Ename.split(" ");
+return (words[0].charAt(0) + words[words.length -
+1] + "@example.com").toLowerCase();
+}
+@Override
+public String toString() {
+return "Emply{" +
+"Ename='" + formatEmployeeName() + '\'' +
+", Eid=" + Eid +
+", Basic=" + Basic +
+", Email='" + generateEmail() + '\'' +
+'}';
+}
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter the number of employees: ");
+Emply[] employees = new Emply[sc.nextInt()];
+sc.nextLine(); // Consume the newline
+for (int i = 0; i < employees.length; i++) {
+System.out.print("Enter Employee Name: ");
+String name = sc.nextLine();
+System.out.print("Enter Employee ID: ");
+int id = sc.nextInt();
+System.out.print("Enter Basic Salary: ");
+double basic = sc.nextDouble();
+sc.nextLine(); // Consume the newline
+employees[i] = new Emply(name, id, basic);
+}
+for (Emply emp : employees) {
+System.out.println(emp);
+}
+}
+}
