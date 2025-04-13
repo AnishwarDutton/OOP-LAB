@@ -1,0 +1,110 @@
+import java.util.Scanner;
+
+class EMPLOYEE {
+    String Ename;
+    int Eid;
+    double Basic;
+    double DA;
+    double Gross_Sal;
+    double Net_Sal;
+
+    public void read(Scanner scanner) {
+        System.out.print("Enter Employee Name: ");
+        Ename = scanner.next();
+        System.out.print("Enter Employee ID: ");
+        Eid = scanner.nextInt();
+        System.out.print("Enter Basic Salary: ");
+        Basic = scanner.nextDouble();
+    }
+
+    public void compute_net_sal() {
+        DA = 0.52 * Basic;
+        Gross_Sal = Basic + DA;
+        double IT = 0.30 * Gross_Sal;
+        Net_Sal = Gross_Sal - IT;
+    }
+
+    public void displayEmployeeDetails() {
+        System.out.println("Employee Name: " + Ename);
+        System.out.println("Employee ID: " + Eid);
+        System.out.println("Basic Salary: " + Basic);
+        System.out.println("Gross Salary: " + Gross_Sal);
+        System.out.println("Net Salary: " + Net_Sal);
+    }
+}
+
+class PartTimeEmp extends EMPLOYEE {
+    int hoursWorked;
+    static final double hourlyRate = 500;
+
+    @Override
+    public void compute_net_sal() {
+        Net_Sal = hoursWorked * hourlyRate;
+    }
+
+    @Override
+    public void displayEmployeeDetails() {
+        compute_net_sal();
+        System.out.println("Employee Name: " + Ename);
+        System.out.println("Employee ID: " + Eid);
+        System.out.println("Hours Worked: " + hoursWorked);
+        System.out.println("Hourly Rate: " + hourlyRate);
+        System.out.println("Calculated Salary: " + Net_Sal);
+    }
+
+    public void readPartTimeDetails(Scanner scanner) {
+        System.out.print("Enter Employee Name: ");
+        Ename = scanner.next();
+        System.out.print("Enter Employee ID: ");
+        Eid = scanner.nextInt();
+        System.out.print("Enter Hours Worked: ");
+        hoursWorked = scanner.nextInt();
+    }
+}
+
+class FullTimeEmp extends EMPLOYEE {
+    double bonus;
+    double deductions;
+
+    @Override
+    public void compute_net_sal() {
+        super.compute_net_sal();
+        Net_Sal = Net_Sal + bonus - deductions;
+    }
+
+    @Override
+    public void displayEmployeeDetails() {
+        compute_net_sal();
+        super.displayEmployeeDetails();
+        System.out.println("Bonus: " + bonus);
+        System.out.println("Deductions: " + deductions);
+    }
+
+    public void readFullTimeDetails(Scanner scanner) {
+        read(scanner);
+        System.out.print("Enter Bonus: ");
+        bonus = scanner.nextDouble();
+        System.out.print("Enter Deductions: ");
+        deductions = scanner.nextDouble();
+    }
+}
+
+public class Empsub {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter details for Part-Time Employee:");
+        PartTimeEmp partTimeEmp = new PartTimeEmp();
+        partTimeEmp.readPartTimeDetails(scanner);
+        System.out.println("\nDetails of Part-Time Employee:");
+        partTimeEmp.displayEmployeeDetails();
+
+        System.out.println("\nEnter details for Full-Time Employee:");
+        FullTimeEmp fullTimeEmp = new FullTimeEmp();
+        fullTimeEmp.readFullTimeDetails(scanner);
+        System.out.println("\nDetails of Full-Time Employee:");
+        fullTimeEmp.displayEmployeeDetails();
+
+        scanner.close();
+    }
+}
