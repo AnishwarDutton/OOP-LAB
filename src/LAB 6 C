@@ -1,0 +1,124 @@
+import java.util.Scanner;
+
+class Subject {
+    String name;
+    int marks;
+
+    Subject(String name, int marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    public String toString() {
+        return name + ": " + marks;
+    }
+}
+
+class Student {
+    String sname;
+    Subject[] subjects;
+
+    void assign(String name, Subject[] subjectsArray) {
+        sname = name;
+        subjects = subjectsArray;
+    }
+
+    String extractInitials() {
+        StringBuilder initials = new StringBuilder();
+        for (String word : sname.split(" ")) {
+            if (!word.isEmpty()) {
+                initials.append(word.charAt(0));
+            }
+        }
+        return initials.toString().toUpperCase();
+    }
+
+    String removeWhitespace() {
+        return sname.replaceAll("\\s", "");
+    }
+
+    static void listStudentsWithSubstring(Student[] students, String substring) {
+        System.out.println("\nStudents containing substring \"" + substring + "\":");
+        for (Student student : students) {
+            if (student.sname.contains(substring)) {
+                System.out.println(student.sname);
+            }
+        }
+    }
+
+    static void sortStudentsAlphabetically(Student[] students) {
+        for (int i = 0; i < students.length - 1; i++) {
+            for (int j = 0; j < students.length - i - 1; j++) {
+                if (students[j].sname.compareToIgnoreCase(students[j + 1].sname) > 0) {
+                    Student temp = students[j];
+                    students[j] = students[j + 1];
+                    students[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public String toString() {
+        StringBuilder subjectDetails = new StringBuilder();
+        if (subjects != null) {
+            for (Subject sub : subjects) {
+                subjectDetails.append(sub.toString()).append(", ");
+            }
+        }
+        return sname + " (" + extractInitials() + ", " + removeWhitespace() + ")" +
+                (subjects != null ? " Subjects: " + subjectDetails.toString().trim() : "");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the number of students: ");
+        int numStudents = sc.nextInt();
+        sc.nextLine(); // Consume newline
+
+        Student[] students = new Student[numStudents];
+
+        for (int i = 0; i < numStudents; i++) {
+            System.out.print("\nEnter Student Name: ");
+            String name = sc.nextLine();
+
+            System.out.print("Enter number of subjects: ");
+            int numSubjects = sc.nextInt();
+            sc.nextLine(); // Consume newline
+
+            Subject[] subjects = new Subject[numSubjects];
+            for (int j = 0; j < numSubjects; j++) {
+                System.out.print("Enter Subject Name: ");
+                String subjectName = sc.nextLine();
+
+                System.out.print("Enter Marks: ");
+                int marks = sc.nextInt();
+                sc.nextLine(); // Consume newline
+
+                subjects[j] = new Subject(subjectName, marks);
+            }
+
+            students[i] = new Student();
+            students[i].assign(name, subjects);
+        }
+
+        System.out.println("\nStudent Details:");
+        for (Student student : students) {
+            System.out.println(student);
+        }
+
+        System.out.print("\nEnter substring to search for: ");
+        String substring = sc.nextLine();
+        Student.listStudentsWithSubstring(students, substring);
+
+        Student.sortStudentsAlphabetically(students);
+        System.out.println("\nStudents sorted alphabetically:");
+        for (Student student : students) {
+            System.out.println(student.sname);
+        }
+
+        sc.close();
+    }
+}
