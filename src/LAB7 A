@@ -1,0 +1,97 @@
+import java.util.Scanner;
+//Base Class
+class STUDENT {
+String sname;
+int[] marks_array;
+int total = 0;
+double avg = 0.0;
+public void assign(String name, int[] marks) {
+sname = name;
+marks_array = marks;
+}
+public void compute() {
+total = 0;
+for (int mark : marks_array) {
+total += mark;
+}
+avg = total / (double) marks_array.length;
+}
+public void display() {
+System.out.println("Student Name: " + sname);
+System.out.print("Marks: ");
+for (int mark : marks_array) {
+System.out.print(mark + " ");
+}
+System.out.println("\nTotal Marks: " + total);
+System.out.println("Average Marks: " + avg);
+}
+}
+//Subclass: ScienceStudent
+class ScienceStudent extends STUDENT {
+int practicalMarks;
+public ScienceStudent(String name, int[] marks, int practicalMarks)
+{
+super.assign(name, marks);
+this.practicalMarks = practicalMarks;
+}
+
+public void compute() {
+super.compute();
+total += practicalMarks;
+avg = total / (double) (marks_array.length + 1);
+}
+public void displayPracticalMarks() {
+System.out.println("Practical Marks: " + practicalMarks);
+}
+}
+//Subclass: ArtsStudent
+class ArtsStudent extends STUDENT {
+String electiveSubject;
+public ArtsStudent(String name, int[] marks, String electiveSubject)
+{
+super.assign(name, marks);
+this.electiveSubject = electiveSubject;
+}
+public void displayElectiveSubject() {
+System.out.println("Elective Subject: " + electiveSubject);
+}
+}
+//Main Class
+public class Main {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+// Input for Science Student
+System.out.print("Enter Science Student Name: ");
+String sciName = sc.nextLine();
+System.out.print("Enter number of subjects: ");
+int sciSubjects = sc.nextInt();
+int[] sciMarks = new int[sciSubjects];
+System.out.println("Enter marks for " + sciSubjects + " subjects:");
+for (int i = 0; i < sciSubjects; i++) sciMarks[i] = sc.nextInt();
+System.out.print("Enter Practical Marks: ");
+int practicalMarks = sc.nextInt();
+ScienceStudent sciStudent = new ScienceStudent(sciName, sciMarks,
+practicalMarks);
+sciStudent.compute();
+sciStudent.display();
+sciStudent.displayPracticalMarks();
+sc.nextLine(); // Clear buffer
+// Input for Arts Student
+System.out.print("\nEnter Arts Student Name: ");
+String artsName = sc.nextLine();
+System.out.print("Enter number of subjects: ");
+int artsSubjects = sc.nextInt();
+int[] artsMarks = new int[artsSubjects];
+System.out.println("Enter marks for " + artsSubjects + "subjects:");
+for (int i = 0; i < artsSubjects; i++) artsMarks[i] =
+sc.nextInt();
+sc.nextLine(); // Clear buffer
+System.out.print("Enter Elective Subject: ");
+String electiveSubject = sc.nextLine();
+ArtsStudent artsStudent = new ArtsStudent(artsName, artsMarks,
+electiveSubject);
+artsStudent.compute();
+artsStudent.display();
+artsStudent.displayElectiveSubject();
+}
+}
