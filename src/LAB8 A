@@ -1,0 +1,70 @@
+import java.util.Scanner;
+abstract class Figure {
+int x, y;
+Figure(int x, int y) {
+this.x = x;
+this.y = y;
+}
+abstract double area();
+}
+class Rectangle extends Figure {
+Rectangle(int x, int y) {
+super(x, y);
+}
+@Override
+double area() {
+return x * y;
+}
+}
+class Triangle extends Figure {
+Triangle(int x, int y) {
+super(x, y);
+}
+@Override
+double area() {
+return 0.5 * x * y;
+}
+}
+class Square extends Figure {
+Square(int side) {
+super(side, side);
+}
+@Override
+double area() {
+return x * x;
+}
+}
+public class FigureDemo {
+public static void main(String[] args) {
+Scanner scanner = new Scanner(System.in);
+System.out.println("Choose a figure to calculate the area:");
+System.out.println("1. Rectangle\n2. Triangle\n3. Square");
+int choice = scanner.nextInt();
+Figure figure = null;
+switch (choice) {
+case 1:
+System.out.print("Enter width and height of Rectangle: ");
+int rectWidth = scanner.nextInt();
+int rectHeight = scanner.nextInt();
+figure = new Rectangle(rectWidth, rectHeight);
+break;
+case 2:
+System.out.print("Enter base and height of Triangle: ");
+int triBase = scanner.nextInt();
+int triHeight = scanner.nextInt();
+figure = new Triangle(triBase, triHeight);
+break;
+case 3:
+System.out.print("Enter side of Square: ");
+int squareSide = scanner.nextInt();
+figure = new Square(squareSide);
+break;
+default:
+System.out.println("Invalid choice!");
+scanner.close();
+return;
+}
+System.out.println("Area: " + figure.area());
+scanner.close();
+}
+}
